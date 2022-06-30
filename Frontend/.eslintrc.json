@@ -11,6 +11,13 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "import/resolver": {
+      "node": { "moduleDirectory": ["node_modules", "src/"] }
+    }
+  },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "react/function-component-definition": [0]
+  }
 }
