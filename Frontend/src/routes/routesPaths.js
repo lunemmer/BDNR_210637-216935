@@ -1,6 +1,6 @@
 const routesPaths = {
   register: "/register",
-  users: "/users",
+  profile: "/profile",
   vehicles: "/vehicles",
   notFound: "*",
 };

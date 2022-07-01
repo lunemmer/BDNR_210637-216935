@@ -1,6 +1,6 @@
 import React from "react";
 import VehiclePage from "pages/VehiclePage";
-import UserPage from "pages/UserPage";
+import ProfilePage from "pages/ProfilePage";
 import SignUpPage from "pages/SignUpPage";
 import routesPaths from "./routesPaths";
 
@@ -14,8 +14,8 @@ const routes = [
     element: <VehiclePage />,
   },
   {
-    path: routesPaths.users,
-    element: <UserPage />,
+    path: routesPaths.profile,
+    element: <ProfilePage />,
   },
   {
     path: routesPaths.notFound,

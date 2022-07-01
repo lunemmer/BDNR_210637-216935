@@ -11,7 +11,7 @@ const getUser = (req, res, next) => {
   return UserService.findUserById(id)
     .then((user) => {
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ error: { message: "User not found" } });
       }
       return res.status(200).json({ user });
     })
@@ -24,7 +24,9 @@ const createUser = (req, res, next) => {
   const { body: newUser } = req;
 
   if (!newUser.email || !newUser.password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res
+      .status(400)
+      .json({ error: { message: "Email and password are required" } });
   }
 
   return UserService.insertUser(newUser)
@@ -51,7 +53,7 @@ const updateUser = (req, res, next) => {
   return UserService.findUserByIdAndUpdate(id, user)
     .then((resp) => {
       if (!resp) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ error: { message: "User not found" } });
       }
       return res.status(200).json({ user: resp });
     })
