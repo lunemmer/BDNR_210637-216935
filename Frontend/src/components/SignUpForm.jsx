@@ -9,7 +9,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { COUNTRY_ENUM, LANGUAGE_ENUM } from "utils/constants";
+import { COUNTRY_ENUM, LANGUAGE_ENUM, PAYMENT_METHOD } from "utils/constants";
 
 const SignUpForm = ({ onSubmit, loading = false, defaultUser = {} }) => {
   const { handleSubmit, control } = useForm({
@@ -141,6 +141,33 @@ const SignUpForm = ({ onSubmit, loading = false, defaultUser = {} }) => {
           )}
           defaultValue={defaultUser?.profile?.language || LANGUAGE_ENUM[0]}
         />
+
+        {defaultUser?.email && (
+          <Controller
+            name="paymentMethods"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Autocomplete
+                multiple
+                options={PAYMENT_METHOD}
+                filterSelectedOptions
+                onChange={(e, data) => onChange(data)}
+                value={value}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Payment Methods"
+                    variant="outlined"
+                    placeholder="Select Payment Method"
+                  />
+                )}
+              />
+            )}
+            defaultValue={
+              defaultUser?.profile?.paymentMethods || [PAYMENT_METHOD[0]]
+            }
+          />
+        )}
 
         <Box mt={2}>
           <LoadingButton

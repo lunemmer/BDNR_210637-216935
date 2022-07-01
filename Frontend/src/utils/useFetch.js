@@ -20,7 +20,9 @@ const useFetch = () => {
           "Content-Type": "application/json",
         },
         method,
-        ...(method === "POST" && { body: JSON.stringify(body) }),
+        ...((method === "POST" || method === "PUT") && {
+          body: JSON.stringify(body),
+        }),
       });
       await handleError(response);
 

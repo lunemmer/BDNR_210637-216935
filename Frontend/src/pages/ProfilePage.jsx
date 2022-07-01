@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
-import SignUpForm from "components/SignUpForm";
 import useFetch from "utils/useFetch";
 import DeleteUser from "components/DeleteUser";
+import EditUser from "components/EditUser";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -19,13 +20,9 @@ const ProfilePage = () => {
         User Profile: {data.user?._id}
       </Typography>
 
-      {data.user && (
-        <SignUpForm
-          onSubmit={(d) => console.log(d)}
-          loading={loading}
-          defaultUser={data.user}
-        />
-      )}
+      {loading && <CircularProgress color="primary" />}
+
+      {data.user && <EditUser user={data.user} />}
 
       {error && (
         <Typography variant="p" m={2} color="error">

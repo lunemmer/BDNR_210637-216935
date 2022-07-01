@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import SignUpForm from "components/SignUpForm";
-import routesPaths from "routes/routesPaths";
 import useFetch from "utils/useFetch";
+import routesPaths from "routes/routesPaths";
+import { object } from "prop-types";
 
-const SignUpPage = () => {
+const EditUser = ({ user }) => {
   const navigate = useNavigate();
   const { loading, success, error, onFetch } = useFetch();
 
@@ -15,17 +16,13 @@ const SignUpPage = () => {
     }
   }, [success]);
 
-  const onRegisterUser = (newUser) => {
-    onFetch({ uri: "/users", method: "POST", body: newUser });
+  const onEditUser = (updatedData) => {
+    onFetch({ uri: `/users/${user._id}`, method: "PUT", body: updatedData });
   };
 
   return (
     <>
-      <Typography variant="h4" m={2}>
-        User Registration
-      </Typography>
-
-      <SignUpForm onSubmit={onRegisterUser} loading={loading} />
+      <SignUpForm onSubmit={onEditUser} loading={loading} defaultUser={user} />
 
       {error && (
         <Typography variant="p" m={2} color="error">
@@ -36,4 +33,8 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+EditUser.propTypes = {
+  user: object.isRequired,
+};
+
+export default EditUser;

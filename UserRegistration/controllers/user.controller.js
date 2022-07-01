@@ -35,7 +35,7 @@ const createUser = (req, res, next) => {
 };
 
 const updateUser = (req, res, next) => {
-  const { id } = req.param;
+  const { id } = req.params;
   const { body: updatedUser } = req;
 
   const user = {
