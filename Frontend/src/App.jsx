@@ -1,33 +1,46 @@
 import React from "react";
-import { useRoutes, useLocation } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import routes from "routes";
+import routesPaths from "routes/routesPaths";
 
-const navItems = ["Usuarios", "Vehículos"];
+const navItems = [
+  {
+    display: "Register User",
+    route: routesPaths.register,
+  },
+  {
+    display: "All Users",
+    route: routesPaths.users,
+  },
+  {
+    display: "Vehicle Info",
+    route: routesPaths.vehicles,
+  },
+];
 
 function App() {
   const appRoutes = useRoutes(routes);
-  const location = useLocation();
 
   return (
     <>
-      {!location.pathname?.includes("register") && (
-        <AppBar component="nav">
-          <Toolbar>
-            <Box>
-              {navItems.map((item) => (
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
-              ))}
-            </Box>
-          </Toolbar>
-        </AppBar>
-      )}
-      <div>{appRoutes}</div>
+      <AppBar component="nav">
+        <Toolbar>
+          <Box>
+            {navItems.map(({ display, route }) => (
+              <Button key={display} sx={{ color: "#fff" }} href={route}>
+                {display}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box component="main" mt={12} mx={4}>
+        {appRoutes}
+      </Box>
     </>
   );
 }

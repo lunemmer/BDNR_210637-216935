@@ -1,5 +1,5 @@
 import React from "react";
-import { func, bool } from "prop-types";
+import { func, bool, object } from "prop-types";
 import { Controller, useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,10 +11,11 @@ import Box from "@mui/material/Box";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { COUNTRY_ENUM, LANGUAGE_ENUM } from "utils/constants";
 
-const SignUpForm = ({ onSubmit, loading = false }) => {
+const SignUpForm = ({ onSubmit, loading = false, defaultUser = {} }) => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      birthDate: new Date(),
+      birthDate: defaultUser.profile?.birthDate || new Date(),
+      password: defaultUser.password,
     },
   });
 
@@ -24,44 +25,73 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
         <Controller
           name="email"
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <TextField
               label="Email"
               variant="outlined"
               type="email"
               onChange={onChange}
+              value={value}
             />
           )}
+          defaultValue={defaultUser?.email}
         />
+
+        {!defaultUser?.password && (
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                onChange={onChange}
+                value={value}
+              />
+            )}
+            defaultValue={defaultUser?.password}
+          />
+        )}
+
         <Controller
-          name="password"
+          name="username"
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <TextField
-              label="Password"
+              label="User Name"
               variant="outlined"
-              type="password"
               onChange={onChange}
+              value={value}
             />
           )}
+          defaultValue={defaultUser?.profile?.username}
         />
         <Controller
           name="name"
           control={control}
-          render={({ field: { onChange } }) => (
-            <TextField label="Name" variant="outlined" onChange={onChange} />
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Name"
+              variant="outlined"
+              onChange={onChange}
+              value={value}
+            />
           )}
+          defaultValue={defaultUser?.profile?.name}
         />
         <Controller
           name="lastName"
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <TextField
               label="Last Name"
               variant="outlined"
               onChange={onChange}
+              value={value}
             />
           )}
+          defaultValue={defaultUser?.profile?.lastName}
         />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Controller
@@ -76,11 +106,11 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
                 renderInput={(params) => <TextField {...params} />}
               />
             )}
+            defaultValue={defaultUser?.profile?.birthDate}
           />
         </LocalizationProvider>
 
         <Controller
-          defaultValue={COUNTRY_ENUM[0]}
           name="country"
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -93,10 +123,10 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
               value={value}
             />
           )}
+          defaultValue={defaultUser?.profile?.country || COUNTRY_ENUM[0]}
         />
 
         <Controller
-          defaultValue={LANGUAGE_ENUM[0]}
           name="language"
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -109,6 +139,7 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
               value={value}
             />
           )}
+          defaultValue={defaultUser?.profile?.language || LANGUAGE_ENUM[0]}
         />
 
         <Box mt={2}>
@@ -117,7 +148,7 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
             variant="contained"
             onClick={handleSubmit(onSubmit)}
           >
-            Crear Usuario
+            {defaultUser?.email ? "Edit User" : "Crear User"}
           </LoadingButton>
         </Box>
       </Stack>
@@ -127,6 +158,7 @@ const SignUpForm = ({ onSubmit, loading = false }) => {
 
 SignUpForm.propTypes = {
   onSubmit: func.isRequired,
+  defaultUser: object,
   loading: bool,
 };
 
