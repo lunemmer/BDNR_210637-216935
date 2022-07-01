@@ -6,7 +6,8 @@
       "constants/*": ["constants/*"],
       "pages/*": ["pages/*"],
       "routes/*": ["routes/*"],
-      "api/*": ["api/*"]
+      "api/*": ["api/*"],
+      "utils/*": ["utils/*"]
     }
   }
 }

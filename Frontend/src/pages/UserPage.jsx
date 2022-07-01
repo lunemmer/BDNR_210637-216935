@@ -1,5 +1,6 @@
 import React from "react";
+import Box from "@mui/material/Box";
 
-const UserPage = () => <div>Hola Registro User</div>;
+const UserPage = () => <Box component="main">Hfdsfsadfsdola!</Box>;
 
 export default UserPage;
