@@ -40,7 +40,7 @@ const LANGUAGE_ENUM = [
 
 const PAYMENT_METHOD = [
   "Dinero",
-  "Depósito Bancario",
+  "Transferencia Bancaria",
   "Tarjeta de Débito",
   "Tarjeta de Crédito",
 ];

@@ -1,11 +1,11 @@
 const UserService = require("../services/user.service");
 
-const getAllUsers = (_, res) =>
+const getAllUsers = (_, res, next) =>
   UserService.findAll()
     .then((users) => res.status(200).json({ users }))
-    .catch((err) => res.status(500).json({ message: err }));
+    .catch((err) => next(err));
 
-const getUser = (req, res) => {
+const getUser = (req, res, next) => {
   const { id } = req.params;
 
   return UserService.findUserById(id)
@@ -13,40 +13,57 @@ const getUser = (req, res) => {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-
       return res.status(200).json({ user });
     })
-    .catch((err) => res.status(500).json({ message: err }));
+    .catch((err) => {
+      next(err);
+    });
 };
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   const { body: newUser } = req;
 
+  if (!newUser.email || !newUser.password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
   return UserService.insertUser(newUser)
-    .then((user) => res.status(200).json({ user }))
-    .catch((err) => res.status(400).json({ message: err }));
+    .then((user) => res.status(201).json({ user }))
+    .catch((err) => next(err));
 };
 
-const updateUser = (req, res) => {
+const updateUser = (req, res, next) => {
   const { id } = req.param;
   const { body: updatedUser } = req;
 
-  return UserService.findUserByIdAndUpdate(id, updatedUser)
-    .then((user) => {
-      if (!user) {
+  const user = {
+    email: updatedUser.email,
+    password: updatedUser.password,
+    username: updatedUser.username,
+    name: updateUser.name,
+    lastName: updateUser.lastName,
+    birthDate: updatedUser.birthDate,
+    country: updatedUser.country,
+    language: updatedUser.language,
+    paymentMethods: updatedUser.paymentMethods,
+  };
+
+  return UserService.findUserByIdAndUpdate(id, user)
+    .then((resp) => {
+      if (!resp) {
         return res.status(404).json({ message: "User not found" });
       }
-      return res.status(200).json({ user });
+      return res.status(200).json({ user: resp });
     })
-    .catch((err) => res.status(400).json({ message: err }));
+    .catch((err) => next(err));
 };
 
-const deleteUser = (req, res) => {
-  const { id } = req.param;
+const deleteUser = (req, res, next) => {
+  const { id } = req.params;
 
   return UserService.findUserByIdAndDelete(id)
     .then(() => res.status(204).json())
-    .catch((err) => res.status(500).send({ message: err }));
+    .catch((err) => next(err));
 };
 
 module.exports = {

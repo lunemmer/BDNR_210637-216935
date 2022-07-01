@@ -29,6 +29,7 @@ const UserSchema = mongoose.Schema(
   },
   {
     timestamps: true,
+    strict: "throw",
   }
 );
 

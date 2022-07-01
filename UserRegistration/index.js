@@ -15,6 +15,19 @@ app.use(express.json());
 
 app.use("/", userRoutes);
 
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
+});
+
+// eslint-disable-next-line no-unused-vars
+app.use((error, _, res, next) => {
+  res.status(error.status || 500).json({
+    error: { message: error.message },
+  });
+});
+
 const start = async () => {
   try {
     const username = process.env.MONGO_ROOT_USERNAME;
