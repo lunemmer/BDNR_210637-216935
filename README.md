@@ -46,18 +46,18 @@ Para correr la instancia de Cassandra:
   USE bdnr_cassandra;
 
   CREATE TABLE IF NOT EXISTS measurement(
-  datetime timestamp,
-  measurement_id UUID,
-  vehicle_id UUID,
-  temperature double,
-  pressure double,
-  voltage double,
-  velocity int,
-  electromagnetic_waves double,
-  vibration double,
-  PRIMARY KEY (vehicle_id, datetime, measurement_id)
+    datetime timestamp,
+    measurement_id UUID,
+    vehicle_id UUID,
+    temperature double,
+    pressure double,
+    voltage double,
+    velocity int,
+    electromagnetic_waves double,
+    vibration double,
+    PRIMARY KEY (vehicle_id, datetime, measurement_id)
   )
-WITH CLUSTERING ORDER BY(datetime DESC);
+  WITH CLUSTERING ORDER BY(datetime DESC);
   ```
 
 
