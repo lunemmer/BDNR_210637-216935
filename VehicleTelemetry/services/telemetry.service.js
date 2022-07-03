@@ -45,20 +45,15 @@ const findMeasurementById = () => Promise.resolve();
 
 const createMeasurement = (data) => {
   const query =
-    "INSERT INTO measurement (day, vehicle_id, measurement_id, time, temperature, pressure, voltage, velocity, electromagnetic_waves, vibration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO measurement (datetime, measurement_id, vehicle_id, temperature, pressure, voltage, velocity, electromagnetic_waves, vibration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   const measurementId = Uuid.random().toString();
   const datetime = new Date(data.datetime);
 
-  const day = `${datetime.getFullYear()}-${
-    datetime.getMonth() + 1
-  }-${datetime.getDate()}`;
-
   const params = [
-    day,
-    data.vehicleId,
-    measurementId,
     datetime,
+    measurementId,
+    data.vehicleId,
     data.temperature,
     data.pressure,
     data.voltage,
