@@ -45,20 +45,73 @@ Para correr la instancia de Cassandra:
 
   USE bdnr_cassandra;
 
-  CREATE TABLE IF NOT EXISTS measurement (
-    measurement_id text,
-    datetime timestamp,
-    vehicle_id text,
-    temperature double,
-    pressure double,
-    voltage double,
-    velocity int,
-    electromagnetic_waves double,
-    vibration double,
-    PRIMARY KEY (measurement_id, datetime)
+  CREATE TABLE IF NOT EXISTS measurement(
+  datetime timestamp,
+  measurement_id UUID,
+  vehicle_id UUID,
+  temperature double,
+  pressure double,
+  voltage double,
+  velocity int,
+  electromagnetic_waves double,
+  vibration double,
+  PRIMARY KEY (vehicle_id, datetime, measurement_id)
   )
-  WITH CLUSTERING ORDER BY (datetime DESC);
+WITH CLUSTERING ORDER BY(datetime DESC);
   ```
+
+
+
+
+INSERT INTO measurement (
+  datetime,
+  vehicle_id,
+  measurement_id
+  ) VALUES (
+    '2013-04-03 07:04:00',
+    8757a5c3-1844-4448-a130-88abbb7550d4,
+    8757a5c3-1844-4448-a130-88abbb755012
+  );
+
+  INSERT INTO measurement (
+  datetime,
+  vehicle_id,
+  measurement_id
+  ) VALUES (
+    '2012-04-10 10:04:00',
+    8757a5c3-1844-4448-a130-88abbb7550d4,
+    8757a5c3-1844-4448-a130-88abbb755012
+  );
+
+INSERT INTO measurement (
+  datetime,
+  vehicle_id,
+  measurement_id
+  ) VALUES (
+    '2021-07-10 06:04:00',
+    8757a5c3-1844-4448-a130-88abbb7550d4,
+    8757a5c3-1844-4448-a130-88abbb755012
+  );
+
+  INSERT INTO measurement (
+  datetime,
+  vehicle_id,
+  measurement_id
+  ) VALUES (
+    '2021-07-10 08:04:00',
+    8757a5c3-1844-4448-a130-88abbb7550d4,
+    8757a5c3-1844-4448-a130-88abbb755012
+  );
+
+INSERT INTO measurement (
+  datetime,
+  vehicle_id,
+  measurement_id
+  ) VALUES (
+    '2021-07-10 08:03:00',
+    8757a5c3-1844-4448-a130-88abbb7550d4,
+    8757a5c3-1844-4448-a130-88abbb755012
+  );
 
 Referencia [https://medium.com/@rohitanil/cassandra-docker-for-dummies-by-a-dummy-ee6c10672553](Cassandra + Docker For Dummies By a Dummy)
 

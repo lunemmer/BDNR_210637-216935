@@ -8,20 +8,30 @@ const client = new cassandra.Client({
 });
 
 const findAll = async (data = {}) => {
-  let query = "SELECT * FROM measurement;";
-  let params = [];
+  const query = "SELECT * FROM measurement";
+  const params = [];
 
-  if (data.fromDateTime && data.toDateTime) {
-    query =
-      "SELECT * FROM measurement where datetime > ? AND datetime < ? ALLOW FILTERING;";
-    params = [data.sfromDateTime, data.toDateTime];
-  } else if (data.fromDateTime) {
-    query = "SELECT * FROM measurement where datetime > ? ALLOW FILTERING;";
-    params = [data.fromDateTime];
-  } else if (data.toDateTime) {
-    query = "SELECT * FROM measurement where datetime < ? ALLOW FILTERING;";
-    params = [data.toDateTime];
-  }
+  // if (data.vehicleId) {
+  //   query = `${query} WHERE vehicle_id = ?`;
+  //   params = [data.vehicleId];
+  // }
+
+  // if (data.fromDateTime || data.toDateTime) {
+  //   query = params.length ? `${query} AND` : `${query} WHERE`;
+  // }
+
+  // if (data.fromDateTime && data.toDateTime) {
+  //   query = `${query} datetime > ? AND datetime < ? ALLOW FILTERING`;
+  //   params = [...params, data.fromDateTime, data.toDateTime];
+  // } else if (data.fromDateTime) {
+  //   query = `${query} datetime > ? ALLOW FILTERING`;
+  //   params = [...params, data.fromDateTime];
+  // } else if (data.toDateTime) {
+  //   query = `${query} datetime < ? ALLOW FILTERING`;
+  //   params = [...params, data.toDateTime];
+  // }
+
+  // query = `${query};`;
 
   return client
     .execute(query, params, { prepare: true })
@@ -35,15 +45,20 @@ const findMeasurementById = () => Promise.resolve();
 
 const createMeasurement = (data) => {
   const query =
-    "INSERT INTO measurement (measurement_id, datetime, vehicle_id, temperature, pressure, voltage, velocity, electromagnetic_waves, vibration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO measurement (day, vehicle_id, measurement_id, time, temperature, pressure, voltage, velocity, electromagnetic_waves, vibration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   const measurementId = Uuid.random().toString();
   const datetime = new Date(data.datetime);
 
+  const day = `${datetime.getFullYear()}-${
+    datetime.getMonth() + 1
+  }-${datetime.getDate()}`;
+
   const params = [
+    day,
+    data.vehicleId,
     measurementId,
     datetime,
-    data.vehicleId,
     data.temperature,
     data.pressure,
     data.voltage,
