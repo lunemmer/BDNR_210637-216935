@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "7d7bf91f-e3fe-4378-8f93-304c0d1af6ce",
+		"name": "Telemetría de Usuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2790921"
+	},
+	"item": [
+		{
+			"name": "Get Measurements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{telemetryApiUrl}}/measurements",
+					"host": [
+						"{{telemetryApiUrl}}"
+					],
+					"path": [
+						"measurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Measurements (filtered)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{telemetryApiUrl}}/measurements?vehicleId=faa82526-acb5-48b4-bf9f-f79cf49e6ec2",
+					"host": [
+						"{{telemetryApiUrl}}"
+					],
+					"path": [
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "vehicleId",
+							"value": "faa82526-acb5-48b4-bf9f-f79cf49e6ec2"
+						},
+						{
+							"key": "fromDate",
+							"value": "2022-07-02",
+							"disabled": true
+						},
+						{
+							"key": "toDate",
+							"value": "2022-07-04",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Measurement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"datetime\": 1656852170973,\n    \"vehicleId\": \"8757a5c3-1844-4448-a130-88abbb7550d4\",\n    \"temperature\": 17,\n    \"pressure\": 32,\n    \"voltage\": 7,\n    \"velocity\": 45,\n    \"electromagneticWaves\": 3,\n    \"vibration\": 2\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{telemetryApiUrl}}/measurements",
+					"host": [
+						"{{telemetryApiUrl}}"
+					],
+					"path": [
+						"measurements"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

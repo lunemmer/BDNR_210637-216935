@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "7d817921-6ede-4819-bd6e-831ccc6e553c",
+		"name": "Registro de Usuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2790921"
+	},
+	"item": [
+		{
+			"name": "Get All Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userApiUrl}}/users",
+					"host": [
+						"{{userApiUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userApiUrl}}/users/62beefe17093bbea7bcad507",
+					"host": [
+						"{{userApiUrl}}"
+					],
+					"path": [
+						"users",
+						"62beefe17093bbea7bcad507"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"password\",\n    \"username\": \"test_123\",\n    \"name\": \"Test\",\n    \"lastName\": \"LastName\",\n    \"birthDate\": \"03/05/1995\",\n    \"country\": \"Uruguay\",\n    \"language\": \"Español\",\n    \"paymentMethods\": [\"Transferencia Bancaria\"]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userApiUrl}}/users",
+					"host": [
+						"{{userApiUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"password\",\n    \"username\": \"test_123\",\n    \"name\": \"Test\",\n    \"lastName\": \"LastName\",\n    \"birthDate\": \"03/05/1995\",\n    \"country\": \"Uruguay\",\n    \"language\": \"Español\",\n    \"paymentMethods\": [\"Transferencia Bancaria\"]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userApiUrl}}/users/62c20a67a11cb4b4210543a3",
+					"host": [
+						"{{userApiUrl}}"
+					],
+					"path": [
+						"users",
+						"62c20a67a11cb4b4210543a3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

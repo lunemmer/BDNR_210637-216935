@@ -14,12 +14,19 @@ const findAll = async (data = {}) => {
   if (data.vehicleId) {
     query = `${query} WHERE vehicle_id = ?`;
     params = [data.vehicleId];
+
+    if (data.fromDate) {
+      query = `${query} AND datetime > ?`;
+      params.push(data.fromDate);
+    }
+    if (data.toDate) {
+      query = `${query} AND datetime < ?`;
+      params.push(data.toDate);
+    }
   }
 
-  query = `${query};`;
-
   return client
-    .execute(query, params, { prepare: true })
+    .execute(`${query};`, params, { prepare: true })
     .then(({ rows, rowLength }) => ({ rows, rowLength }))
     .catch(({ message }) => {
       throw new Error(`An error ocurred when getting measurements: ${message}`);

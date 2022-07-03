@@ -1,9 +1,9 @@
 const TelemetryService = require("../services/telemetry.service");
 
 const getAllMeasurements = (req, res, next) => {
-  const { vehicleId } = req.query;
+  const { vehicleId, fromDate, toDate } = req.query;
 
-  return TelemetryService.findAll({ vehicleId })
+  return TelemetryService.findAll({ vehicleId, fromDate, toDate })
     .then((response) => res.status(200).json(response))
     .catch((err) => next(err));
 };
