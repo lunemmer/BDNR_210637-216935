@@ -44,3 +44,26 @@ export const PAYMENT_METHOD = [
   "Tarjeta de Débito",
   "Tarjeta de Crédito",
 ];
+
+export const VEHICLES = [
+  {
+    id: 1,
+    name: "Tesla 1",
+  },
+  {
+    id: 2,
+    name: "Tesla 2",
+  },
+  {
+    id: 3,
+    name: "Tesla 3",
+  },
+  {
+    id: 4,
+    name: "Tesla 4",
+  },
+  {
+    id: 5,
+    name: "Tesla 5",
+  },
+];

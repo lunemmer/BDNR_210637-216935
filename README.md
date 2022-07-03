@@ -13,19 +13,54 @@ Se deberá tener instalado Docker previamente.
 [Docker](https://docs.docker.com/get-docker/)
 
 TODO: Crear un container de docker (TODO VER DE PONER UN DOCKER COMPOSE Y VA A SER MCUHO MAS FACIL)
+Para Mongo:
 
 1. Abrir docker
 2. Correr `docker pull mongo`
 3. Correr `docker run -d --name bdnr_mongo -p 4000:27017 -e MONGO_INITDB_ROOT_USERNAME=bdnr -e MONGO_INITDB_ROOT_PASSWORD=password mongo`
 4. Para chequear que el container esta ejecutandose correctamente, correr: `docker container ls`
 
-Para correr a la instancia de MongoDB:
+Para correr la instancia de MongoDB:
 
 1. Correr `docker exec -it bdnr_mongo bash`
 2. Acceder a la instancia: `mongo --username bdnr --password password`
 3. Correr `show dbs`.
 
 Referencia [https://medium.com/@szpytfire/setting-up-mongodb-within-a-docker-container-for-local-development-327e32a2b68d](Setting up MongoDB within a Docker container for local development)
+
+Para Cassandra:
+
+1. Abrir docker
+2. Correr `docker pull cassandra`
+3. Correr `docker run -d --name bdnr_cassandra -p 9042:9042 cassandra`
+
+Para correr la instancia de Cassandra:
+
+1. Correr `docker exec -it bdnr_cassandra bash`
+2. Correr: `cqlsh`
+3. Crear la tabla de Telemetría
+
+````
+  CREATE KEYSPACE bdnr_cassandra WITH REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
+
+  USE bdnr_cassandra;
+
+  CREATE TABLE IF NOT EXISTS measurement (
+    measurement_id text,
+    datetime timestamp,
+    vehicle_id text,
+    temperature double,
+    pressure double,
+    voltage double,
+    velocity int,
+    electromagnetic_waves double,
+    vibration double,
+    PRIMARY KEY (measurement_id, datetime)
+  )
+  WITH CLUSTERING ORDER BY (datetime DESC);
+  ```
+
+Referencia [https://medium.com/@rohitanil/cassandra-docker-for-dummies-by-a-dummy-ee6c10672553](Cassandra + Docker For Dummies By a Dummy)
 
 ### Inicialización
 
@@ -64,3 +99,4 @@ Los servicios se ejecutarán en los siguientes puertos:
 - Aplicación web: [localhost:3000](localhost:3000)
 - Servicio Registro y Perfíl de Usuarios: [localhost:3001](localhost:3001)
 - Servicio de Telemetría de Vehículos: [localhost:3002](localhost:3002)
+````
