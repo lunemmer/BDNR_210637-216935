@@ -19,7 +19,10 @@ const DeleteUser = ({ userId }) => {
   }, [success]);
 
   const onRemoveUser = () => {
-    onFetch({ uri: `/users/${userId}`, method: "DELETE" });
+    onFetch({
+      url: `${process.env.REACT_APP_USERS_API_URL}/users/${userId}`,
+      method: "DELETE",
+    });
   };
 
   return (

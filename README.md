@@ -140,7 +140,7 @@ Dentro de la carpeta `Frontend`
 
 1. Llenar el archivo de configuración `.env` con:
 
-- REACT_APP_API_URL=http://localhost:3001
+- REACT_APP_USERS_API_URL=http://localhost:3001
 
 2. Correr `npm install`
 3. Correr `npm start`

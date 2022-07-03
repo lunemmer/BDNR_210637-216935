@@ -18,7 +18,10 @@ const UsersPage = () => {
   const { loading, error, data, onFetch } = useFetch();
 
   useEffect(() => {
-    onFetch({ uri: "/users", method: "GET" });
+    onFetch({
+      url: `${process.env.REACT_APP_USERS_API_URL}/users`,
+      method: "GET",
+    });
   }, []);
 
   const onEdit = (id) => {

@@ -11,7 +11,10 @@ const ProfilePage = () => {
   const { loading, error, onFetch, data } = useFetch();
 
   useEffect(() => {
-    onFetch({ uri: `/users/${id}`, method: "GET" });
+    onFetch({
+      url: `${process.env.REACT_APP_USERS_API_URL}/users/${id}`,
+      method: "GET",
+    });
   }, []);
 
   return (

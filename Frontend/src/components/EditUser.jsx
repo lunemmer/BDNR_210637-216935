@@ -17,7 +17,11 @@ const EditUser = ({ user }) => {
   }, [success]);
 
   const onEditUser = (updatedData) => {
-    onFetch({ uri: `/users/${user._id}`, method: "PUT", body: updatedData });
+    onFetch({
+      url: `${process.env.REACT_APP_USERS_API_URL}/users/${user._id}`,
+      method: "PUT",
+      body: updatedData,
+    });
   };
 
   return (

@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import useFetch from "utils/useFetch";
 import MeasurementTable from "components/MeasurementTable";
 
-const VehiclePage = () => {
-  const { id } = useParams();
+const MeasurementsPage = () => {
   const { loading, error, onFetch, data } = useFetch();
 
   useEffect(() => {
     onFetch({
-      url: `${process.env.REACT_APP_TELEMETRY_API_URL}/measurements?vehicleId=${id}`,
+      url: `${process.env.REACT_APP_TELEMETRY_API_URL}/measurements`,
       method: "GET",
     });
   }, []);
@@ -19,10 +17,10 @@ const VehiclePage = () => {
   return (
     <>
       <Typography variant="h4" m={2}>
-        Vehicle #{id}
+        All Measurements
       </Typography>
 
-      <MeasurementTable rows={data?.rows} />
+      <MeasurementTable rows={data?.rows} showVehicle />
 
       {loading && <CircularProgress color="primary" />}
 
@@ -35,4 +33,4 @@ const VehiclePage = () => {
   );
 };
 
-export default VehiclePage;
+export default MeasurementsPage;

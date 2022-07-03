@@ -3,6 +3,8 @@ const routesPaths = {
   users: "/users",
   profile: "/profile/:id",
   vehicles: "/vehicles",
+  vehicleMeasures: "/vehicles/:id",
+  measures: "/measures",
   notFound: "*",
 };
 

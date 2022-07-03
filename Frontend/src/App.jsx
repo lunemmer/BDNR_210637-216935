@@ -17,8 +17,12 @@ const navItems = [
     route: routesPaths.users,
   },
   {
-    display: "Vehicle Info",
+    display: "All Vehicles",
     route: routesPaths.vehicles,
+  },
+  {
+    display: "All Measures",
+    route: routesPaths.measures,
   },
 ];
 

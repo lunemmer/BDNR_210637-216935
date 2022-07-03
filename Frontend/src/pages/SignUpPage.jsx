@@ -16,7 +16,11 @@ const SignUpPage = () => {
   }, [success]);
 
   const onRegisterUser = (newUser) => {
-    onFetch({ uri: "/users", method: "POST", body: newUser });
+    onFetch({
+      url: `${process.env.REACT_APP_USERS_API_URL}/users`,
+      method: "POST",
+      body: newUser,
+    });
   };
 
   return (

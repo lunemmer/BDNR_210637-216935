@@ -1,28 +1,11 @@
 const TelemetryService = require("../services/telemetry.service");
 
 const getAllMeasurements = (req, res, next) => {
-  const { fromDateTime, toDateTime, vehicleId } = req.query;
+  const { vehicleId } = req.query;
 
-  return TelemetryService.findAll({ fromDateTime, toDateTime, vehicleId })
+  return TelemetryService.findAll({ vehicleId })
     .then((response) => res.status(200).json(response))
     .catch((err) => next(err));
-};
-
-const getMeasurement = () => (req, res, next) => {
-  const { id } = req.params;
-
-  return TelemetryService.findMeasurementById(id)
-    .then((user) => {
-      if (!user) {
-        return res
-          .status(404)
-          .json({ error: { message: "Measurement not found" } });
-      }
-      return res.status(200).json({ user });
-    })
-    .catch((err) => {
-      next(err);
-    });
 };
 
 const createMeasurement = (req, res, next) => {
@@ -35,6 +18,5 @@ const createMeasurement = (req, res, next) => {
 
 module.exports = {
   getAllMeasurements,
-  getMeasurement,
   createMeasurement,
 };

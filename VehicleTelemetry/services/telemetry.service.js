@@ -8,30 +8,15 @@ const client = new cassandra.Client({
 });
 
 const findAll = async (data = {}) => {
-  const query = "SELECT * FROM measurement";
-  const params = [];
+  let query = "SELECT * FROM measurement";
+  let params = [];
 
-  // if (data.vehicleId) {
-  //   query = `${query} WHERE vehicle_id = ?`;
-  //   params = [data.vehicleId];
-  // }
+  if (data.vehicleId) {
+    query = `${query} WHERE vehicle_id = ?`;
+    params = [data.vehicleId];
+  }
 
-  // if (data.fromDateTime || data.toDateTime) {
-  //   query = params.length ? `${query} AND` : `${query} WHERE`;
-  // }
-
-  // if (data.fromDateTime && data.toDateTime) {
-  //   query = `${query} datetime > ? AND datetime < ? ALLOW FILTERING`;
-  //   params = [...params, data.fromDateTime, data.toDateTime];
-  // } else if (data.fromDateTime) {
-  //   query = `${query} datetime > ? ALLOW FILTERING`;
-  //   params = [...params, data.fromDateTime];
-  // } else if (data.toDateTime) {
-  //   query = `${query} datetime < ? ALLOW FILTERING`;
-  //   params = [...params, data.toDateTime];
-  // }
-
-  // query = `${query};`;
+  query = `${query};`;
 
   return client
     .execute(query, params, { prepare: true })

@@ -7,14 +7,14 @@ const useFetch = () => {
   const [error, setError] = useState("");
   const [data, setData] = useState({});
 
-  const onFetch = async ({ uri, method = "GET", body = {} }) => {
+  const onFetch = async ({ url, method = "GET", body = {} }) => {
     try {
       setLoading(true);
       setSuccess(false);
       setError("");
       setData({});
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}${uri}`, {
+      const response = await fetch(url, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
