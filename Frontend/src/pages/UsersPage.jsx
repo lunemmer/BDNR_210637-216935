@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
@@ -65,7 +66,7 @@ const UsersPage = () => {
                   {profile.lastName || "-"}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {profile.birthDate || "-"}
+                  {format(new Date(profile.birthDate), "MM/dd/yyyy") || "-"}
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {profile.country || "-"}

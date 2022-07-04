@@ -65,6 +65,15 @@ const VehicleRow = ({ id, name }) => {
     }
   }, [isRunning]);
 
+  useEffect(
+    () => () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    },
+    []
+  );
+
   const onClickView = () => {
     navigate(routesPaths.vehicleMeasures.replace(":id", id));
   };
